@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Gerencia de Recursos de Tecnología de Información y Comunicación">
+  <title>GRTIC | Gestión de Recursos TIC</title>
+
+  <style>
+    :root{
+      --bg:#141414;
+      --panel:#1d1d1d;
+      --panel-2:#242424;
+      --red:#e52f36;
+      --red-dark:#8e1d22;
+      --white:#f5f5f5;
+      --muted:#a7a7a7;
+      --line:rgba(255,255,255,.10);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{
+      font-family:Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at 78% 15%, rgba(229,47,54,.10), transparent 24%),
+        var(--bg);
+      color:var(--white);
+      line-height:1.6;
+    }
+    a{text-decoration:none;color:inherit}
+    img{max-width:100%;display:block}
+
+    .container{width:min(1120px,92%);margin:auto}
+
+    /* NAV */
+    header{
+      position:fixed;
+      top:0;left:0;width:100%;
+      z-index:1000;
+      background:rgba(20,20,20,.82);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,255,255,.06);
+    }
+    nav{
+      height:76px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+    }
+    .logo{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      font-weight:800;
+      letter-spacing:2px;
+    }
+    .logo-mark{
+      width:38px;height:38px;
+      display:grid;place-items:center;
+      color:var(--red);
+      font-size:24px;
+      border:1px solid var(--red);
+      transform:skew(-8deg);
+    }
+    .nav-links{display:flex;gap:34px;list-style:none}
+    .nav-links a{
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      color:#d7d7d7;
+      transition:.25s;
+    }
+    .nav-links a:hover{color:var(--red)}
+
+    /* HERO */
+    .hero{
+      min-height:100vh;
+      padding-top:76px;
+      display:grid;
+      align-items:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .hero-grid{
+      min-height:calc(100vh - 76px);
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      align-items:center;
+      gap:30px;
+    }
+    .eyebrow{
+      font-size:12px;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      color:#c9c9c9;
+      margin-bottom:15px;
+    }
+    h1{
+      font-size:clamp(3.5rem,8vw,7rem);
+      line-height:.9;
+      letter-spacing:-5px;
+      text-transform:uppercase;
+      max-width:650px;
+    }
+    h1 span{color:var(--red)}
+    .hero-copy{
+      color:#bdbdbd;
+      max-width:540px;
+      margin:28px 0;
+      font-size:16px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:15px;
+      padding:13px 18px;
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:50px;
+      font-size:12px;
+      text-transform:uppercase;
+      letter-spacing:1.5px;
+      transition:.3s;
+    }
+    .btn:hover{
+      background:var(--red);
+      border-color:var(--red);
+      transform:translateY(-2px);
+    }
+    .btn-circle{
+      width:34px;height:34px;
+      display:grid;place-items:center;
+      border:1px solid rgba(255,255,255,.25);
+      border-radius:50%;
+    }
+
+    /* HERO VISUAL */
+    .hero-visual{
+      min-height:570px;
+      position:relative;
+      display:grid;
+      place-items:center;
+    }
+    .orb{
+      position:absolute;
+      width:min(500px,85%);
+      aspect-ratio:1;
+      border-radius:50%;
+      background:radial-gradient(circle at 35% 30%, #ff4c51, var(--red) 48%, #7f171b);
+      box-shadow:0 0 90px rgba(229,47,54,.18);
+    }
+    .statue{
+      position:relative;
+      z-index:2;
+      width:min(420px,80%);
+      height:500px;
+      display:flex;
+      align-items:flex-end;
+      justify-content:center;
+      filter:drop-shadow(0 25px 25px rgba(0,0,0,.55));
+    }
+    /* Abstract classical figure made with CSS so the page has no external dependencies */
+    .head{
+      position:absolute;
+      top:45px;
+      width:110px;height:125px;
+      border-radius:48% 48% 42% 42%;
+      background:linear-gradient(135deg,#ff8585,#9d252b);
+      box-shadow:inset -15px -12px 25px rgba(60,0,0,.35);
+    }
+    .hair{
+      position:absolute;
+      top:25px;
+      width:150px;height:110px;
+      border-radius:50%;
+      background:#8c2026;
+      clip-path:polygon(8% 42%,18% 13%,35% 20%,48% 4%,61% 18%,78% 9%,94% 39%,86% 70%,72% 52%,56% 70%,38% 55%,22% 72%);
+    }
+    .body{
+      position:absolute;
+      bottom:15px;
+      width:290px;height:365px;
+      border-radius:46% 46% 16% 16%;
+      background:linear-gradient(145deg,#ff7779 5%,#b52a31 45%,#71151a 100%);
+      clip-path:polygon(32% 0,68% 0,83% 16%,92% 45%,78% 61%,100% 100%,0 100%,22% 62%,8% 45%,17% 16%);
+      box-shadow:inset -25px -25px 45px rgba(50,0,0,.35);
+    }
+    .drape{
+      position:absolute;
+      z-index:4;
+      bottom:0;
+      width:350px;height:210px;
+      background:linear-gradient(145deg,#a92a31,#4d0e12);
+      clip-path:polygon(0 12%,100% 0,85% 100%,20% 100%);
+      transform:rotate(-4deg);
+      opacity:.95;
+    }
+    .arm{
+      position:absolute;
+      z-index:3;
+      width:55px;height:250px;
+      background:linear-gradient(90deg,#7d171d,#e95b60);
+      border-radius:50px;
+      top:175px;
+    }
+    .arm.left{left:43px;transform:rotate(17deg)}
+    .arm.right{right:43px;transform:rotate(-17deg)}
+
+    .visual-label{
+      position:absolute;
+      bottom:5px;
+      left:0;
+      font-size:11px;
+      letter-spacing:2px;
+      color:#777;
+      text-transform:uppercase;
+    }
+
+    /* SECTIONS */
+    section{padding:110px 0}
+    .section-head{
+      display:flex;
+      justify-content:space-between;
+      align-items:end;
+      gap:30px;
+      margin-bottom:55px;
+    }
+    .section-kicker{
+      color:var(--red);
+      font-size:12px;
+      letter-spacing:3px;
+      text-transform:uppercase;
+      margin-bottom:10px;
+    }
+    h2{
+      font-size:clamp(2.2rem,5vw,4.4rem);
+      line-height:.95;
+      text-transform:uppercase;
+      letter-spacing:-2px;
+    }
+    .section-head p{max-width:430px;color:var(--muted)}
+
+    .process{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      border-top:1px solid var(--line);
+      border-left:1px solid var(--line);
+    }
+    .process-card{
+      min-height:300px;
+      padding:28px;
+      border-right:1px solid var(--line);
+      border-bottom:1px solid var(--line);
+      background:linear-gradient(145deg,rgba(255,255,255,.025),transparent);
+      transition:.3s;
+    }
+    .process-card:hover{
+      background:linear-gradient(145deg,rgba(229,47,54,.13),transparent);
+      transform:translateY(-5px);
+    }
+    .number{
+      color:var(--red);
+      font-size:12px;
+      letter-spacing:2px;
+      margin-bottom:60px;
+    }
+    .process-card h3{
+      font-size:24px;
+      text-transform:uppercase;
+      margin-bottom:12px;
+    }
+    .process-card p{color:var(--muted);font-size:14px}
+
+    /* IMPORTANCE */
+    .importance{background:#191919}
+    .feature-grid{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:16px;
+    }
+    .feature{
+      min-height:220px;
+      padding:28px;
+      border:1px solid var(--line);
+      position:relative;
+      overflow:hidden;
+      background:#202020;
+    }
+    .feature::after{
+      content:"";
+      position:absolute;
+      width:110px;height:110px;
+      border-radius:50%;
+      background:var(--red);
+      opacity:.08;
+      right:-35px;bottom:-35px;
+    }
+    .feature-icon{
+      width:42px;height:42px;
+      border:1px solid var(--red);
+      border-radius:50%;
+      display:grid;place-items:center;
+      color:var(--red);
+      margin-bottom:30px;
+    }
+    .feature h3{
+      text-transform:uppercase;
+      font-size:17px;
+      margin-bottom:8px;
+    }
+    .feature p{font-size:14px;color:var(--muted)}
+
+    /* CTA */
+    .cta{
+      margin-top:50px;
+      padding:70px;
+      border:1px solid var(--line);
+      position:relative;
+      overflow:hidden;
+      background:
+        radial-gradient(circle at 85% 20%,rgba(229,47,54,.4),transparent 28%),
+        #202020;
+    }
+    .cta h2{max-width:700px}
+    .cta p{color:var(--muted);max-width:650px;margin:22px 0 30px}
+
+    footer{
+      border-top:1px solid var(--line);
+      padding:28px 0;
+      color:#777;
+      font-size:12px;
+    }
+    .footer-row{display:flex;justify-content:space-between;gap:20px}
+
+    @media(max-width:850px){
+      .nav-links{gap:15px}
+      .hero-grid{grid-template-columns:1fr}
+      .hero{padding-top:100px}
+      .hero-visual{min-height:480px}
+      .process{grid-template-columns:1fr 1fr}
+      .feature-grid{grid-template-columns:1fr 1fr}
+      .section-head{display:block}
+      .section-head p{margin-top:20px}
+    }
+    @media(max-width:560px){
+      .nav-links{display:none}
+      h1{letter-spacing:-3px}
+      .hero-visual{min-height:400px}
+      .orb{width:330px}
+      .statue{transform:scale(.8)}
+      .process,.feature-grid{grid-template-columns:1fr}
+      section{padding:80px 0}
+      .cta{padding:35px 25px}
+      .footer-row{display:block}
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <nav>
+        <a class="logo" href="#inicio">
+          <span class="logo-mark">G</span>
+          GRTIC
+        </a>
+
+        <ul class="nav-links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#gerencia">Gerencia</a></li>
+          <li><a href="#importancia">Importancia</a></li>
+          <li><a href="#conclusion">Conclusión</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="inicio">
+      <div class="container hero-grid">
+        <div>
+          <div class="eyebrow">Gerencia de Recursos TIC</div>
+          <h1>Gestionar.<br><span>Optimizar.</span><br>Proteger.</h1>
+          <p class="hero-copy">
+            La gerencia de recursos tecnológicos permite planificar, diseñar,
+            implementar y evaluar la infraestructura TIC de una organización
+            para convertir la tecnología en un recurso estratégico.
+          </p>
+          <a class="btn" href="#gerencia">
+            Explorar contenido
+            <span class="btn-circle">↓</span>
+          </a>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="orb"></div>
+          <div class="statue">
+            <div class="hair"></div>
+            <div class="head"></div>
+            <div class="arm left"></div>
+            <div class="arm right"></div>
+            <div class="body"></div>
+            <div class="drape"></div>
+          </div>
+          <div class="visual-label">Technology / Strategy / Infrastructure</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="gerencia">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">01 — Gerencia</div>
+            <h2>Del plan a<br>la realidad</h2>
+          </div>
+          <p>
+            La gestión de recursos tecnológicos requiere un proceso ordenado
+            que permita tomar decisiones, construir soluciones y comprobar
+            que la infraestructura responde a las necesidades de la empresa.
+          </p>
+        </div>
+
+        <div class="process">
+          <article class="process-card">
+            <div class="number">01 / 04</div>
+            <h3>Planificación</h3>
+            <p>
+              Identificar necesidades, objetivos, recursos disponibles,
+              prioridades y riesgos antes de invertir o modificar la
+              infraestructura tecnológica.
+            </p>
+          </article>
+
+          <article class="process-card">
+            <div class="number">02 / 04</div>
+            <h3>Diseño</h3>
+            <p>
+              Definir la arquitectura, herramientas, servicios y distribución
+              de los recursos TIC de acuerdo con los objetivos de la empresa.
+            </p>
+          </article>
+
+          <article class="process-card">
+            <div class="number">03 / 04</div>
+            <h3>Implementación</h3>
+            <p>
+              Poner en funcionamiento las soluciones planificadas, configurando
+              equipos, software, redes y servicios de manera controlada.
+            </p>
+          </article>
+
+          <article class="process-card">
+            <div class="number">04 / 04</div>
+            <h3>Evaluación</h3>
+            <p>
+              Medir el funcionamiento de la infraestructura, detectar problemas
+              y realizar mejoras para mantener un servicio eficiente.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="importance" id="importancia">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <div class="section-kicker">02 — Importancia</div>
+            <h2>Infraestructura<br>TIC</h2>
+          </div>
+          <p>
+            Una infraestructura bien gestionada ayuda a que los recursos
+            tecnológicos sean seguros, eficientes, sostenibles y alineados
+            con las necesidades de la organización.
+          </p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature">
+            <div class="feature-icon">01</div>
+            <h3>Hardware & Software</h3>
+            <p>Administrar equipos, sistemas, aplicaciones y licencias para aprovechar correctamente los recursos disponibles.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">02</div>
+            <h3>Monitoreo</h3>
+            <p>Supervisar el rendimiento y optimizar el uso de los recursos para detectar problemas y evitar desperdicios.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">03</div>
+            <h3>Seguridad</h3>
+            <p>Proteger la información, los sistemas y la infraestructura frente a amenazas y accesos no autorizados.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">04</div>
+            <h3>Capacitación</h3>
+            <p>Mantener al personal actualizado para utilizar las herramientas tecnológicas de manera correcta y segura.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">05</div>
+            <h3>Integración</h3>
+            <p>Conectar tecnologías y sistemas para facilitar el intercambio de información y mejorar los procesos.</p>
+          </article>
+
+          <article class="feature">
+            <div class="feature-icon">06</div>
+            <h3>Ética</h3>
+            <p>Promover un uso responsable de la tecnología, respetando la información, las personas y las normas de la organización.</p>
+          </article>
+        </div>
+
+        <div class="cta" id="conclusion">
+          <div class="section-kicker">03 — Conclusión</div>
+          <h2>La tecnología funciona mejor cuando está bien gestionada.</h2>
+          <p>
+            La gerencia de recursos TIC no consiste únicamente en adquirir
+            equipos o instalar software. Implica planificar, diseñar,
+            implementar, evaluar y mejorar continuamente la infraestructura
+            tecnológica para apoyar los objetivos de la organización.
+          </p>
+          <a class="btn" href="#inicio">Volver al inicio <span class="btn-circle">↑</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container footer-row">
+      <span>GRTIC — Laboratorio #4</span>
+      <span>Gerencia de Recursos de Tecnología de Información y Comunicación</span>
+    </div>
+  </footer>
+</body>
+</html>
